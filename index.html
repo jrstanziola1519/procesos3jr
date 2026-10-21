@@ -400,6 +400,7 @@
             };
 
             if (editIndex >= 0) {
+                recordData.createdAt = records[editIndex].createdAt || recordData.createdAt;
                 records[editIndex] = recordData;
                 showToast('Registro actualizado');
             } else {
@@ -782,7 +783,8 @@
             }
 
             try {
-                const excelData = records.map((r, index) => ({
+                const enOrden = [...records].reverse();   // la lista guarda el más nuevo arriba; Excel va en orden de ingreso
+                const excelData = enOrden.map((r, index) => ({
                     'Item': index + 1,
                     'Fecha': r.fecha || '',
                     'Cliente': r.cliente || '',
